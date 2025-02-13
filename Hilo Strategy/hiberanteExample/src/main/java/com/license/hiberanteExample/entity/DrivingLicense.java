@@ -4,7 +4,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 import java.util.Date;
 
@@ -12,41 +14,40 @@ import java.util.Date;
 // import org.hibernate.annotations.GenericGenerators;
 // import org.hibernate.annotations.Parameter;
 
-
+// Entity should be annotated with @Entity annotation
+@Entity
 @Table(name = "DrivingLicense")
-// @GenericGenerators(name = "hibhilo", strategy= "hilo", parameters = {@Parameter(name = "max_lo", value = "100000")}, value = { @GenericGenerator })
-@SequenceGenerator(name = "hibhilo", sequenceName = "hibhilo", initialValue = 100000, allocationSize = 1)
+// @GenericGenerators(name = "hibhilo", = "hilo", parameters = {@Parameter(name = "max_lo", value = "100000")}, value =@GenericGenerator(name = "")tor })
+@SequenceGenerator(name = "hibhilo",
+     sequenceName = "hibhilo", 
+     initialValue = 100000, 
+     allocationSize = 1000000)
 public class DrivingLicense {
-
     @Id
-    @GeneratedValue(generator = "hibhilo")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "hibhilo")
     @Column(name = "licenseNumber")
-    Integer licenseNumber;
+    private Integer licenseNumber;
     @Column(name = "name")
-    String name;
+    private String name;
     @Column(name = "age")
-    Integer age;
+    private Integer age;
     @Column(name = "address")
-    String address;
-    @Column(name = "licenseIssueDate")
-    Date licenseIssueDate;
-    @Column(name = "licenseExpiryDate")
-    Date licenseExpiryDate;
-    @Override
-    public String toString() {
-        return "DrivingLicense [licenseNumber=" + licenseNumber + ", name=" + name + ", age=" + age + ", address="
-                + address + ", licenseIssueDate=" + licenseIssueDate + ", licenseExpiryDate=" + licenseExpiryDate
-                + ", licenseIssueZone=" + licenseIssueZone + "]";
-    }
+    private String address;
+    // @Column(name = "licenseIssueDate")
+    // Date licenseIssueDate;
+    // @Column(name = "licenseExpiryDate")
+    // Date licenseExpiryDate;
     @Column(name = "licenseIssueZone")
-    String licenseIssueZone;
-    public DrivingLicense(String name, Integer age, String address, Date licenseIssueDate, Date licenseExpiryDate,
+    private String licenseIssueZone;
+    public DrivingLicense(){} //no parameters constructor should be there
+    public DrivingLicense(String name, Integer age, String address,
+    // , Date licenseIssueDate, Date licenseExpiryDate,
             String licenseIssueZone) {
         this.name = name;
         this.age = age;
         this.address = address;
-        this.licenseIssueDate = licenseIssueDate;
-        this.licenseExpiryDate = licenseExpiryDate;
+        // this.licenseIssueDate = licenseIssueDate;
+        // this.licenseExpiryDate = licenseExpiryDate;
         this.licenseIssueZone = licenseIssueZone;
     }
     public Integer getLicenseNumber() {
@@ -73,18 +74,18 @@ public class DrivingLicense {
     public void setAddress(String address) {
         this.address = address;
     }
-    public Date getLicenseIssueDate() {
-        return licenseIssueDate;
-    }
-    public void setLicenseIssueDate(Date licenseIssueDate) {
-        this.licenseIssueDate = licenseIssueDate;
-    }
-    public Date getLicenseExpiryDate() {
-        return licenseExpiryDate;
-    }
-    public void setLicenseExpiryDate(Date licenseExpiryDate) {
-        this.licenseExpiryDate = licenseExpiryDate;
-    }
+    // public Date getLicenseIssueDate() {
+    //     return licenseIssueDate;
+    // }
+    // public void setLicenseIssueDate(Date licenseIssueDate) {
+    //     this.licenseIssueDate = licenseIssueDate;
+    // }
+    // public Date getLicenseExpiryDate() {
+    //     return licenseExpiryDate;
+    // }
+    // public void setLicenseExpiryDate(Date licenseExpiryDate) {
+    //     this.licenseExpiryDate = licenseExpiryDate;
+    // }
     public String getLicenseIssueZone() {
         return licenseIssueZone;
     }
@@ -92,8 +93,12 @@ public class DrivingLicense {
         this.licenseIssueZone = licenseIssueZone;
     }
     
-
-
-
+    @Override
+    public String toString() {
+        return "DrivingLicense [licenseNumber=" + licenseNumber + ", name=" + name + ", age=" + age + ", address="
+                + address 
+                // + ", licenseIssueDate=" + licenseIssueDate + ", licenseExpiryDate=" + licenseExpiryDate
+                + ", licenseIssueZone=" + licenseIssueZone + "]";
+    }
 
 }
